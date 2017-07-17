@@ -1,0 +1,1 @@
+Project Kim is a Telegram bot that helps you manage billing your clients, tracking your expenses and making notes. You can find the bot at - http://t.me/projectKimBot.
