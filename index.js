@@ -5,7 +5,12 @@ const { token } = require('./config.js');
 const bot = new TelegramBot(token, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, 'Hello to you too');
+  bot.sendMessage(msg.chat.id, "Hi there! How can I help you?", {
+    'reply_markup': {
+      'keyboard': [['Add invoice'], ['Add billing item'], ['Query your data']],
+      'one_time_keyboard': true
+    }
+  });
 });
 
 bot.on('message', (msg) => {
