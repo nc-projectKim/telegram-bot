@@ -21,6 +21,7 @@ const noteCtrl = new NoteController();
 
 tg.router.when(new Telegram.TextCommand('/note', 'noteCommand'), noteCtrl)
   .when(new Telegram.TextCommand('/get', 'getCommand'), noteCtrl)
+  .when(new Telegram.TextCommand('/view', 'viewCommand'), noteCtrl)
   .otherwise(new OtherwiseController());
 
 function exitHandler(exitCode) {
