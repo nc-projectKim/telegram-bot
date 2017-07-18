@@ -20,6 +20,7 @@ const tg = new Telegram.Telegram(token, {
 const noteCtrl = new NoteController();
 
 tg.router.when(new Telegram.TextCommand('/note', 'noteCommand'), noteCtrl)
+  .when(new Telegram.TextCommand('/get', 'getCommand'), noteCtrl)
   .otherwise(new OtherwiseController());
 
 function exitHandler(exitCode) {

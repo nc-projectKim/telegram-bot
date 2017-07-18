@@ -5,7 +5,7 @@ class NoteController extends Telegram.TelegramBaseController {
         const note = $.message.text.split(' ').slice(1).join(' ');
 
         if (!note) {
-            return $.sendMessage('Sorry, please pass a todo item.');
+            return $.sendMessage('Sorry, please pass note text.');
         }
 
         $.getUserSession('notes')
@@ -13,16 +13,32 @@ class NoteController extends Telegram.TelegramBaseController {
                 if (!Array.isArray(note)) {
                     $.setUserSession(notes, [note]);
                 } else {
-                    $.setUserSession(notes, note.concat([note]));
+                    $.setUserSession('notes', note.concat([note]));
                 }
                 $.sendMessage('Added new note!');
-            });
+              });
+    }
+
+    getHandler($) {
+      $.getUserSession('notes')
+        .then(notes => {
+          $.sendMessage(this._serializeList(notes), {parse_mode: 'Markdown'});
+        });
     }
 
     get routes() {
         return {
-            noteCommand: 'noteHandler'
+            noteCommand: 'noteHandler',
+            getCommand: 'getHandler'
         };
+    }
+
+    _serializeList(notesList) {
+      let serialized = '*Your Notes:*\n\n';
+      notesList.forEach((note, i) => {
+        serialized += `*${i}* - ${note}\n`;
+      });
+      return serialized;
     }
 }
 
