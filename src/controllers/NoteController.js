@@ -83,7 +83,7 @@ class NoteController extends Telegram.TelegramBaseController {
     _serializeList(notesList) {
       let serialized = '*Your Notes:*\n\n';
       notesList.forEach((note, i) => {
-        serialized += `*${i}* - ${note}\n`;
+        serialized += `*${i}* - *${note.header}*\n\n ${note.body}\n\n`;
       });
       return serialized;
     }
