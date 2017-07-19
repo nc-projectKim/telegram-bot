@@ -37,7 +37,7 @@ class NoteController extends Telegram.TelegramBaseController {
               if (!Array.isArray(notes)) {
                   $.setUserSession('notes', [{header, body}]);
               } else {
-                  $.setUserSession('notes', notes.concat([{header, body}]));
+                  $.setUserSession('notes', notes.concat({header, body}));
               }
               $.sendMessage('Added new note!');
             });
