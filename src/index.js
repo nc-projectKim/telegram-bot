@@ -3,6 +3,7 @@
 const Telegram = require('telegram-node-bot');
 const { token } = require('../config');
 const PersistentMemoryStorage = require('./adaptors/PersistentMemoryStorage');
+const StartController = require('./controllers/StartController');
 const NoteController = require('./controllers/NoteController');
 const OtherwiseController = require('./controllers/OtherwiseController');
 
@@ -19,7 +20,9 @@ const tg = new Telegram.Telegram(token, {
 
 const noteCtrl = new NoteController();
 
-tg.router.when(new Telegram.TextCommand('/note', 'noteCommand'), noteCtrl)
+tg.router.when(new Telegram.TextCommand('/start', 'startCommand'), new StartController())
+  .when(new Telegram.TextCommand('/note', 'noteCommand'), noteCtrl)
+  .when(new Telegram.TextCommand('Add a note', 'noteCommand'), noteCtrl)
   .when(new Telegram.TextCommand('/get', 'getCommand'), noteCtrl)
   .when(new Telegram.TextCommand('/view', 'viewCommand'), noteCtrl)
   .otherwise(new OtherwiseController());
